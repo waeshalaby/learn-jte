@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    environment {
+        APP_NAME = globalVars.APP_NAME
+        ENVIRONMENT = globalVars.ENVIRONMENT
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                gitCheckout()
+            }
+        }
+        stage('Build') {
+            steps {
+                buildImage()
+            }
+        }
+        stage('Deploy') {
+            steps {
+                deployApp()
+            }
+        }
+        stage('Infra Setup') {
+            steps {
+                deployTerraform(region: 'us-east-1', workspace: 'production')
+            }
+        }
+    }
+}

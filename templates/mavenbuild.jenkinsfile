@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    environment {
+        APP_NAME = globalVars.APP_NAME
+        ENVIRONMENT = globalVars.ENVIRONMENT
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                gitCheckout('https://github.com/spring-projects/spring-petclinic.git', 'main')
+            }
+        }
+        stage('Build Application') {
+            steps {
+                buildMavenProject()
+            }
+        }
+        stage('Package Application') {
+            steps {
+                packageApp()
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                buildImage('petclinic-app', 'latest')
+            }
+        }
+/*         stage('Deploy Infrastructure') {
+            steps {
+                deployTerraform('us-east-1', 'production')
+            }
+        } */
+    }
+}
