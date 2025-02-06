@@ -1,0 +1,41 @@
+pipeline_config.groovy:
+
+template = 'defaultPipeline'     # is a jenkinsfile 
+libraries {
+    git
+    docker
+    kubernetes
+}
+
+
+
+4. How JTE Runs a Pipeline:
+mn 25eer load pipeline_config.groovy which include libraries and template (jenkinsfile) then execute.
+
+
+#Pipeline Job Starts
+  1.JTE Reads pipeline_config.groovy to load template and needed libraries.
+             Determines the pipeline template (defaultPipeline.jenkinsfile).
+                       Loads required libraries (git, docker, openshift).
+JTE Executes defaultPipeline.jenkinsfile
+Pipeline Runs Successfully! 🎉
+
+#########################################
+jenkins-template-repo/
+│── pipeline_config.groovy
+│── templates/
+│   ├── defaultPipeline.jenkinsfile
+│── libraries/
+│   ├── git/
+│   │   ├── _init.groovy
+│   │   ├── checkout.groovy
+│   ├── docker/
+│   │   ├── _init.groovy
+│   │   ├── build.groovy
+│   ├── openshift/
+│   │   ├── _init.groovy
+│   │   ├── deploy.groovy
+
+
+
+##########################################
